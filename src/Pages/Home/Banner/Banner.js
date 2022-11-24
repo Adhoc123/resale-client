@@ -1,14 +1,15 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
+import banner from '../../../assets/banner.png';
 const Banner = () => {
     return (
-        <div className="hero min-h-screen bg-base-200">
+        <div className="hero ">
             <div className="hero-content flex-col lg:flex-row-reverse">
-                <img src="https://placeimg.com/260/400/arch" className="max-w-sm rounded-lg shadow-2xl" />
+                <img src={banner} className="rounded-lg w-1/2 " alt='' />
                 <div>
-                    <h1 className="text-5xl font-bold">Box Office News!</h1>
-                    <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                    <button className="btn btn-primary">Get Started</button>
+                    <h1 className="text-5xl font-bold">What We Do!</h1>
+                    <p className="py-6">Here in <strong>Resale</strong> we are selling older products at lower cost. We show products to customer so that they can buy any product by affordable cost. Explore our other sections to know more . . .</p>
+                    <button className="btn btn-primary text-white">Get Started</button>
                 </div>
             </div>
         </div>
