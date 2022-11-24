@@ -8,7 +8,7 @@ const Banner = () => {
                 <img src={banner} className="rounded-lg w-1/2 " alt='' />
                 <div>
                     <h1 className="text-5xl font-bold">What We Do!</h1>
-                    <p className="py-6">Here in <strong>Resale</strong> we are selling older products at lower cost. We show products to customer so that they can buy any product by affordable cost. Explore our other sections to know more . . .</p>
+                    <p className="py-6">Here in <strong>Resale</strong> we are selling older cars at lower cost. We are showing cars from all category to customer so that they can buy any car by affordable cost. Explore our other sections to know more . . .</p>
                     <button className="btn btn-primary text-white">Get Started</button>
                 </div>
             </div>
