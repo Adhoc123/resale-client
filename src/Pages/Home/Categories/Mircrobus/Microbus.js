@@ -1,11 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
+import MicroData from './MicroData';
 
-const Microbus = ({category}) => {
-    
+const Microbus = () => {
+    const microData = useLoaderData();
     return (
         <div>
-               micro
+               {
+                  microData.map(microData=><MicroData
+                  key={microData._id}
+                  microData={microData}
+                  ></MicroData>)
+               }
         </div>
     );
 };

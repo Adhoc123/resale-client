@@ -21,7 +21,8 @@ const router = createBrowserRouter([
             },
             {
                 path: '/microbus/:id',
-                element: <Microbus></Microbus>
+                element: <Microbus></Microbus>,
+                loader: () => fetch('http://localhost:5000/microbus')
             },
             {
                 path: '/luxurycar/:id',
