@@ -1,8 +1,7 @@
-import { useQueries, useQuery } from '@tanstack/react-query';
 import React from 'react';
 
-const MicroData = ({ microData }) => {
-    const { resalePrice, originalPrice, picture, sellerName, location, postTime, usedYear, itemName } = microData;
+const LuxuryData = ({luxuryData}) => {
+    const { resalePrice, originalPrice, picture, sellerName, location, postTime, usedYear, itemName } = luxuryData;
 
     return (
         <div className="card card-compact w-96 bg-base-100 shadow-xl">
@@ -14,7 +13,7 @@ const MicroData = ({ microData }) => {
                 <p><strong>Seller Name: </strong>{sellerName}</p>
                 <p><strong>location: </strong>{location}</p>
                 <p><strong>Post Time: </strong>{postTime}</p>
-                <p><strong>Used Year: </strong>{usedYear}</p>       
+                <p><strong>Used Year: </strong>{usedYear}</p>
                 <div className="card-actions justify-end">
                     <button className="btn btn-primary text-white">Book Now</button>
                 </div>
@@ -23,4 +22,4 @@ const MicroData = ({ microData }) => {
     );
 };
 
-export default MicroData;
+export default LuxuryData;

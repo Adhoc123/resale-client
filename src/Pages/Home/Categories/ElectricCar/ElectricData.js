@@ -1,8 +1,7 @@
-import { useQueries, useQuery } from '@tanstack/react-query';
 import React from 'react';
 
-const MicroData = ({ microData }) => {
-    const { resalePrice, originalPrice, picture, sellerName, location, postTime, usedYear, itemName } = microData;
+const ElectricData = ({electricData}) => {
+    const { resalePrice, originalPrice, picture, sellerName, location, postTime, usedYear, itemName } = electricData;
 
     return (
         <div className="card card-compact w-96 bg-base-100 shadow-xl">
@@ -23,4 +22,4 @@ const MicroData = ({ microData }) => {
     );
 };
 
-export default MicroData;
+export default ElectricData;
