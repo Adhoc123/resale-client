@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ElectricData = ({ electricData }) => {
+const ElectricData = ({ electricData, setElectricCarData }) => {
     const { resalePrice, originalPrice, picture, sellerName, location, postTime, usedYear, itemName } = electricData;
 
     return (
@@ -15,7 +15,7 @@ const ElectricData = ({ electricData }) => {
                 <p><strong>Post Time: </strong>{postTime}</p>
                 <p><strong>Used Year: </strong>{usedYear}</p>
                 <div className="card-actions justify-end">
-                    <label htmlFor="booking-modal" className="btn btn-primary text-white">Book Now</label>
+                    <label onClick={()=>setElectricCarData(electricData)} htmlFor="booking-modal" className="btn btn-primary text-white">Book Now</label>
                 </div>
             </div>
         </div>
