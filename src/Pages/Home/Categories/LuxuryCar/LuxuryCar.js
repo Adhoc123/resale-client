@@ -1,6 +1,6 @@
 import { useQueries, useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import BookingModal from '../../../BookingModal/BookingModal';
+import BookingModalLuxury from '../../../BookingModal/BookingModalLuxury';
 import LuxuryData from '../LuxuryCar/LuxuryData';
 
 const LuxuryCar = () => {
@@ -23,9 +23,10 @@ const LuxuryCar = () => {
             </div>
             {
                 luxurycarData &&
-                <BookingModal
+                <BookingModalLuxury
                     luxurycarData={luxurycarData}
-                ></BookingModal>
+                    setLuxurycarData={setLuxurycarData}
+                ></BookingModalLuxury>
             }
         </section>
     );

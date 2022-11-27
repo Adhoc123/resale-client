@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import BookingModal from '../../../BookingModal/BookingModal';
+import BookingModalElectric from '../../../BookingModal/BookingModalElectric';
 import ElectricData from './ElectricData';
 
 const ElectricCar = () => {
@@ -24,9 +24,10 @@ const ElectricCar = () => {
             </div>
            { 
             electriccarData&&
-            <BookingModal
+            <BookingModalElectric
                 electriccarData={electriccarData}
-            ></BookingModal>
+                setElectricCarData={setElectricCarData}
+            ></BookingModalElectric>
             }
         </section>
 

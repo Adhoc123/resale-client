@@ -1,36 +1,33 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../../contexts/AuthProvider';
-import {GoogleAuthProvider} from 'firebase/auth';
 
-const Login = () => {
+const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const {providerLogin} = useContext(AuthContext);
-    const googleProvider = new GoogleAuthProvider();
 
-    const handleLogin = data =>{
+    const handleSignUp = data => {
         console.log(data);
-    }
-    const handleGoogleSignIn = () =>{
-         providerLogin(googleProvider)
-         .then(result =>{
-            const user = result.user;
-            console.log(user);
-         })
-         .catch(error => console.error(error))
     }
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7'>
-                <h2 className='text-4xl text-center mb-5 font-bold'>Login</h2>
-                <form onSubmit={handleSubmit(handleLogin)}>
+                <h2 className='text-4xl text-center mb-5 font-bold'>Sign Up</h2>
+                <form onSubmit={handleSubmit(handleSignUp)}>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text font-bold">Name</span>
+                        </label>
+                        <input type="text" {...register("name", { required: 'Name is required' })} className="input w-full max-w-xs input-bordered" />
+                        {errors.name && <p className='text-red-600'>{errors.name?.message}</p>}
+
+                    </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
                             <span className="label-text font-bold">Email</span>
                         </label>
                         <input type="email" {...register("email", { required: 'Email is required' })} className="input w-full max-w-xs input-bordered" />
                         {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
+
                     </div>
                     <div className="form-control w-full w-full">
                         <label className="label">
@@ -38,17 +35,15 @@ const Login = () => {
                         </label>
                         <input type="password" {...register("password", { required: 'Password is required' })} className="input w-full max-w-xs input-bordered" />
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
-                    </div>
-                    <input className='btn btn-accent w-full text-white mt-6' value='Login' type="submit" />
-                </form>
-                <p className='mt-5'>New to <strong>Resale?</strong> <Link to='/signup' className='text-primary'>Creat new account</Link></p>
 
-                <div className="divider">OR</div>
-                <button onClick={handleGoogleSignIn} className=' btn btn-outline btn-accent w-full'>Login With Google</button>
+                    </div>
+                    <input className='btn btn-accent w-full text-white mt-6' value='Sign Up' type="submit" />
+                </form>
+                <p className='mt-5'>Already have an account? <Link to='/login' className='text-primary'>Please login</Link></p>
 
             </div>
         </div>
     );
 };
 
-export default Login;
+export default SignUp;

@@ -5,6 +5,7 @@ import LuxuryCar from "../../Pages/Home/Categories/LuxuryCar/LuxuryCar";
 import Microbus from "../../Pages/Home/Categories/Mircrobus/Microbus";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
+import SignUp from '../../Pages/SignUp/SignUp';
 
 const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login></Login>
+            },
+            {
+                path: '/signup',
+                element: <SignUp></SignUp>
             },
             {
                 path: '/microbus/:id',

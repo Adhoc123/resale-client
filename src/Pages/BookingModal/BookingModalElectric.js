@@ -1,14 +1,16 @@
 import React from 'react';
 
-const BookingModal = ({ microbusData, electriccarData, luxurycarData }) => {
-    console.log(luxurycarData)
-    const {itemName, resalePrice} = microbusData;
+const BookingModalElectric = ({ electriccarData, setElectricCarData}) => {
+    const handledata = () =>{
+        setElectricCarData(null);
+    }
+    const {itemName, resalePrice} = electriccarData;
     return (
         <>
             <input type="checkbox" id="booking-modal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative">
-                    <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <label onClick={handledata} htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-lg font-bold">{itemName}</h3>
                     <form className='grid grid-cols-1 gap-4 mt-10'>
                         <input type="text" placeholder="User Name"  className="input input-bordered w-full" />
@@ -22,4 +24,4 @@ const BookingModal = ({ microbusData, electriccarData, luxurycarData }) => {
     );
 };
 
-export default BookingModal;
+export default BookingModalElectric;

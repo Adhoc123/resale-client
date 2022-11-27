@@ -2,7 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import MicroData from './MicroData';
-import BookingModal from '../../../BookingModal/BookingModal';
+
+import BookingModalMicro from '../../../BookingModal/BookingModalMicro';
 
 const Microbus = () => {
     const [microbusData, setMicrobusData] = useState(null);
@@ -25,9 +26,10 @@ const Microbus = () => {
             </div>
         {
             microbusData&&
-            <BookingModal
+            <BookingModalMicro
             microbusData={microbusData}
-            ></BookingModal>
+            setMicrobusData={setMicrobusData}
+            ></BookingModalMicro>
         }
         </section>
 
