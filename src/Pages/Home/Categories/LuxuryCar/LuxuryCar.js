@@ -1,9 +1,10 @@
 import { useQueries, useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import BookingModal from '../../../BookingModal/BookingModal';
 import LuxuryData from '../LuxuryCar/LuxuryData';
 
 const LuxuryCar = () => {
+    const [luxurycarData, setLuxurycarData] = useState(null)
     const { data: luxurycar = [] } = useQuery({
         queryKey: ['luxurycar'],
         queryFn: () => fetch('http://localhost:5000/luxurycar')
@@ -16,10 +17,16 @@ const LuxuryCar = () => {
                     luxurycar.map(luxuryData => <LuxuryData
                         key={luxuryData._id}
                         luxuryData={luxuryData}
+                        setLuxurycarData={setLuxurycarData}
                     ></LuxuryData>)
                 }
             </div>
-            <BookingModal></BookingModal>
+            {
+                luxurycarData &&
+                <BookingModal
+                    luxurycarData={luxurycarData}
+                ></BookingModal>
+            }
         </section>
     );
 };

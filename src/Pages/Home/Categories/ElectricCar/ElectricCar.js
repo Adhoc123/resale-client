@@ -22,9 +22,12 @@ const ElectricCar = () => {
                     ></ElectricData>)
                 }
             </div>
+           { 
+            electriccarData&&
             <BookingModal
                 electriccarData={electriccarData}
             ></BookingModal>
+            }
         </section>
 
     );

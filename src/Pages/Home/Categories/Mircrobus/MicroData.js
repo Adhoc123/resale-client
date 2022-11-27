@@ -1,7 +1,7 @@
 import { useQueries, useQuery } from '@tanstack/react-query';
 import React from 'react';
 
-const MicroData = ({ microData }) => {
+const MicroData = ({ microData, setMicrobusData }) => {
     const { resalePrice, originalPrice, picture, sellerName, location, postTime, usedYear, itemName } = microData;
 
     return (
@@ -16,7 +16,7 @@ const MicroData = ({ microData }) => {
                 <p><strong>Post Time: </strong>{postTime}</p>
                 <p><strong>Used Year: </strong>{usedYear}</p>       
                 <div className="card-actions justify-end">
-                    <label htmlFor="booking-modal" className="btn btn-primary text-white">Book Now</label>
+                    <label onClick={()=>setMicrobusData(microData)} htmlFor="booking-modal" className="btn btn-primary text-white">Book Now</label>
                 </div>
             </div>
         </div>

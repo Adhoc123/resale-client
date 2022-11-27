@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const LuxuryData = ({ luxuryData }) => {
+const LuxuryData = ({ luxuryData, setLuxurycarData }) => {
+    
     const { resalePrice, originalPrice, picture, sellerName, location, postTime, usedYear, itemName } = luxuryData;
 
     return (
@@ -15,7 +16,7 @@ const LuxuryData = ({ luxuryData }) => {
                 <p><strong>Post Time: </strong>{postTime}</p>
                 <p><strong>Used Year: </strong>{usedYear}</p>
                 <div className="card-actions justify-end">
-                    <label htmlFor="booking-modal" className="btn btn-primary text-white">Book Now</label>
+                    <label onClick={()=>setLuxurycarData(luxuryData)} htmlFor="booking-modal" className="btn btn-primary text-white">Book Now</label>
                 </div>
             </div>
         </div>
