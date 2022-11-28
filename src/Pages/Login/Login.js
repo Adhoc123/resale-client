@@ -1,16 +1,30 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import {GoogleAuthProvider} from 'firebase/auth';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const {providerLogin} = useContext(AuthContext);
+    // const [loginError, setLoginError] = useState('');
+    const {providerLogin, signIn, user } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
+    // console.log(user)
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/';
 
     const handleLogin = data =>{
-        console.log(data);
+        // setLoginError('');
+        signIn(data.email, data.password)
+        .then(result => {
+            const user = result.user;
+            navigate(from, {replace: true})
+        })
+        .catch(error => {
+            console.error(error);
+            // setLoginError(error.message);
+        })
     }
     const handleGoogleSignIn = () =>{
          providerLogin(googleProvider)
@@ -18,7 +32,10 @@ const Login = () => {
             const user = result.user;
             console.log(user);
          })
-         .catch(error => console.error(error))
+         .catch(error => {
+            console.error(error);
+            // setLoginError(error.message);
+        })
     }
     return (
         <div className='h-[800px] flex justify-center items-center'>
@@ -39,7 +56,8 @@ const Login = () => {
                         <input type="password" {...register("password", { required: 'Password is required' })} className="input w-full max-w-xs input-bordered" />
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                     </div>
-                    <input className='btn btn-accent w-full text-white mt-6' value='Login' type="submit" />
+                    <input onClick={handleLogin} className='btn btn-accent w-full text-white mt-6' value='Login' type="submit" />
+                    {/* {loginError&&<p>{loginError}</p>} */}
                 </form>
                 <p className='mt-5'>New to <strong>Resale?</strong> <Link to='/signup' className='text-primary'>Creat new account</Link></p>
 

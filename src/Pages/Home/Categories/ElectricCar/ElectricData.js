@@ -2,7 +2,7 @@ import React from 'react';
 
 const ElectricData = ({ electricData, setElectricCarData }) => {
     const { resalePrice, originalPrice, picture, sellerName, location, postTime, usedYear, itemName } = electricData;
-
+    
     return (
         <div className="card card-compact w-96 bg-base-100 shadow-xl">
             <figure><img src={picture} alt="micros" /></figure>

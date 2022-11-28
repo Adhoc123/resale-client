@@ -1,11 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../Layout/Main";
+import Blogs from "../../Pages/Blogs/Blogs";
 import ElectricCar from "../../Pages/Home/Categories/ElectricCar/ElectricCar";
 import LuxuryCar from "../../Pages/Home/Categories/LuxuryCar/LuxuryCar";
 import Microbus from "../../Pages/Home/Categories/Mircrobus/Microbus";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
+import NotFound from "../../Pages/NotFound/NotFound";
 import SignUp from '../../Pages/SignUp/SignUp';
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +20,10 @@ const router = createBrowserRouter([
                 element: <Home></Home>
             },
             {
+                path: '/blogs',
+                element: <Blogs></Blogs>
+            },
+            {
                 path: '/login',
                 element: <Login></Login>
             },
@@ -26,18 +33,22 @@ const router = createBrowserRouter([
             },
             {
                 path: '/microbus/:id',
-                element: <Microbus></Microbus>
+                element: <PrivateRoute><Microbus></Microbus></PrivateRoute>
             },
             {
                 path: '/luxurycar/:id',
-                element: <LuxuryCar></LuxuryCar>
+                element: <PrivateRoute><LuxuryCar></LuxuryCar></PrivateRoute>
             },
             {
                 path: '/electriccar/:id',
-                element: <ElectricCar></ElectricCar>
+                element: <PrivateRoute><ElectricCar></ElectricCar></PrivateRoute>
             }
             
         ]
+    },
+    {
+        path: '*',
+        element: <NotFound></NotFound>
     }
 ])
 
