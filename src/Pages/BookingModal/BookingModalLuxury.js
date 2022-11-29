@@ -14,7 +14,7 @@ const BookingModalLuxury = ({ luxurycarData, setLuxurycarData }) => {
           const location = form.location.value;
           console.log(name, email, price, phone, location);
           const booking = {
-            itemName: name, userEmail: email, price, phone, location
+            itemName: name, email, price, phone, location
           }
           console.log(booking)
           fetch('http://localhost:5000/bookings', {

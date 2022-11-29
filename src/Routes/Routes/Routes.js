@@ -1,6 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../Layout/Main";
 import Blogs from "../../Pages/Blogs/Blogs";
+import AllUsers from "../../Pages/Dashboard/AllUsers";
+import Dashboard from "../../Pages/Dashboard/Dashboard";
+import MyOrders from "../../Pages/Dashboard/MyOrders";
 import ElectricCar from "../../Pages/Home/Categories/ElectricCar/ElectricCar";
 import LuxuryCar from "../../Pages/Home/Categories/LuxuryCar/LuxuryCar";
 import Microbus from "../../Pages/Home/Categories/Mircrobus/Microbus";
@@ -42,8 +45,23 @@ const router = createBrowserRouter([
             {
                 path: '/electriccar/:id',
                 element: <PrivateRoute><ElectricCar></ElectricCar></PrivateRoute>
-            }
+            },
             
+            
+        ]
+    },
+    {
+        path: '/dashboard',
+        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        children: [
+            {
+                path: '/dashboard',
+                element: <MyOrders></MyOrders>
+            },
+            {
+                path: '/dashboard/allusers',
+                element: <AllUsers></AllUsers>
+            }
         ]
     },
     {
