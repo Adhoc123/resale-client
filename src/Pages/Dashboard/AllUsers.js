@@ -33,23 +33,26 @@ const AllUsers = () => {
                 <table className="table w-full">         
                     <thead>
                         <tr>
-                            <th></th>
+                            
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Users</th>
                             <th>Admin</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            // bookings&&
-                            users.map((user,i) =><tr>
-                            <th>{i+1}</th>
-                            <td>{user.name}</td>
-                            <td>{user.email}</td>
-                            <td>{user?.role !== 'admin'&&<button onClick={()=>handleAdmin(user._id)} className='btn btn-xs btn-primary text-white'>Make Admin</button>}</td>
-                            <td><button className='btn btn-xs text-white'>Delete</button></td>
-                            </tr>)
+                             
+                             users.map((user) =>user?.role&&<tr>
+                           
+                            
+                             <td>{user.name}</td>
+                             <td>{user.email}</td>
+                             <td className='text-blue-600 font-bold'>{user.role}</td>
+                             <td>{user?.role !== 'admin'&&<button onClick={()=>handleAdmin(user._id)} className='btn btn-xs btn-primary text-white'>Make Admin</button>}</td> 
+                             <td><button className='btn btn-xs text-white'>Delete</button></td>
+                             </tr>)
                         }
                     </tbody>
                 </table>

@@ -13,7 +13,7 @@ const Login = () => {
     // console.log(user)
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [token] = useToken(loginUserEmail);
-
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/';
@@ -26,6 +26,7 @@ const Login = () => {
         .then(result => {
             const user = result.user;
             setLoginUserEmail(data.email);
+            navigate(from, {replace: true})
         })
         .catch(error => {
             console.error(error);
@@ -36,12 +37,27 @@ const Login = () => {
          providerLogin(googleProvider)
          .then(result =>{
             const user = result.user;
-            console.log(user);
+            saveUser(user?.displayName, user?.email, 'buyer')
+            navigate(from, {replace: true})
          })
          .catch(error => {
             console.error(error);
             // setLoginError(error.message);
         })
+    }
+    const saveUser = (name, email, role) => {
+        const user = { name, email, role };
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setCreatedUserEmail(email);
+            })
     }
     return (
         <div className='h-[800px] flex justify-center items-center'>

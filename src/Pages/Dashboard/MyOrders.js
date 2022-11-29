@@ -8,11 +8,6 @@ const MyOrders = () => {
     console.log(user);
 
     const url=`http://localhost:5000/bookings?email=${user?.email}`;
-    // useEffect(()=>{
-    //     fetch(`http://localhost:5000/bookings?email=${user?.email}`)
-    //     .then(data => console.log(data))
-    //     .catch(error => console.error(error))
-    // },[user?.email])
 
     const {data : bookings = []} = useQuery({
         queryKey: ['bookings', user?.email],
@@ -42,6 +37,7 @@ const MyOrders = () => {
                     </thead>
                     <tbody>
                         {
+                            bookings&&
                             bookings.map((booking,i) =><tr>
                             <th>{i+1}</th>
                             <td>{booking.itemName}</td>

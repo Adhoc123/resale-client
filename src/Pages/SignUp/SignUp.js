@@ -4,86 +4,103 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
+import { Controller } from "react-hook-form";
+
 
 const SignUp = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm();
-    const {createUser, updateUser} = useContext(AuthContext);
+    const { control, reset, register, formState: { errors }, handleSubmit } = useForm();
+    const { createUser, updateUser } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
-    
-    if(token){
+
+    if (token) {
         navigate('/');
     }
 
-    const handleSignUp = data => {
-        // console.log(data)
+    const handleSignUp = event => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        var e = document.getElementById("ddlViewBy");
+        var value = e.value;
+        var role = e.options[e.selectedIndex].text;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(name, email, password, role)
         setSignUpError('');
-        createUser(data.email, data.password)
-        .then(result =>{
-            const user = result.user;
-            toast.success('User Created Successfully.')
-            const userInfo = {
-                displayName: data.name
-            }
-            updateUser(userInfo)
-            .then(()=>{
-                saveUser(data.name, data.email);
+        createUser(email, password)
+            .then(result => {
+                const user = result.user;
+                toast.success('User Created Successfully.')
+                const userInfo = {
+                    displayName: name
+                }
+                updateUser(userInfo)
+                    .then(() => {
+                        saveUser(name, email, role);
+                    })
+                    .catch(error => console.error(error))
+                console.log(userInfo)
             })
-            .catch(error=>console.error(error)) 
-            console.log(userInfo)
-        })
-        .catch(error=> {
-            console.error(error);
-            setSignUpError(error.message);
-        })
+            .catch(error => {
+                console.error(error);
+                setSignUpError(error.message);
+            })
     }
-    const saveUser = (name, email) =>{
-        const user = {name, email};
-        fetch('http://localhost:5000/users',{
+    const saveUser = (name, email, role) => {
+        const user = { name, email, role };
+        fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(user)
         })
-        .then(res => res.json())
-        .then(data => {
-            setCreatedUserEmail(email);
-        })
+            .then(res => res.json())
+            .then(data => {
+                navigate('/');
+                setCreatedUserEmail(email);
+            })
     }
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7'>
                 <h2 className='text-4xl text-center mb-5 font-bold'>Sign Up</h2>
-                <form onSubmit={handleSubmit(handleSignUp)}>
-                    <div className="form-control w-full max-w-xs">
+                <form onSubmit={handleSignUp}>
+                    <div>
                         <label className="label">
-                            <span className="label-text font-bold">Name</span>
+                            <span className="label-text">Account Type</span>
                         </label>
-                        <input type="text" {...register("name", { required: 'Name is required' })} className="input w-full max-w-xs input-bordered" />
-                        {errors.name && <p className='text-red-600'>{errors.name?.message}</p>}
+                        <select id="ddlViewBy" className="select select-bordered w-full max-w-xs">
+                            <option value='user' selected>user</option>
+                            <option name='seller'>seller</option>
+                        </select>
+                    </div>
+
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Name</span>
+                        </label>
+                        <input type="text" name='name' placeholder="name" className="input input-bordered" />
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Email</span>
+                        </label>
+                        <input type="email" name='email' placeholder="email" className="input input-bordered" required />
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Password</span>
+                        </label>
+                        <input type="password" name='password' placeholder="password" className="input input-bordered" required />
 
                     </div>
-                    <div className="form-control w-full max-w-xs">
-                        <label className="label">
-                            <span className="label-text font-bold">Email</span>
-                        </label>
-                        <input type="email" {...register("email", { required: 'Email is required' })} className="input w-full max-w-xs input-bordered" />
-                        {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
-
+                    <div className="form-control mt-6">
+                        <input className="btn btn-primary text-white" type='submit' value='Sign Up' />
                     </div>
-                    <div className="form-control w-full w-full">
-                        <label className="label">
-                            <span className="label-text font-bold">Password</span>
-                        </label>
-                        <input type="password" {...register("password", { required: 'Password is required' })} className="input w-full max-w-xs input-bordered" />
-                        {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
-
-                    </div>
-                    <input className='btn btn-accent w-full text-white mt-6' value='Sign Up' type="submit" />
-                    {signUpError&&<p className='text-red-600'>{signUpError}</p>}
                 </form>
                 <p className='mt-5'>Already have an account? <Link to='/login' className='text-primary'>Please login</Link></p>
 
