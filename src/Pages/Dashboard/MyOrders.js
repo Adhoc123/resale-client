@@ -28,7 +28,7 @@ const MyOrders = () => {
                 <table className="table w-full">         
                     <thead>
                         <tr>
-                            <th></th>
+                           
                             <th>Item Name</th>
                             <th>Price</th>
                             <th>Phone</th>
@@ -39,7 +39,6 @@ const MyOrders = () => {
                         {
                             bookings&&
                             bookings.map((booking,i) =><tr>
-                            <th>{i+1}</th>
                             <td>{booking.itemName}</td>
                             <td>{booking.price}</td>
                             <td>{booking.phone}</td>

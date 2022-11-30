@@ -43,11 +43,12 @@ const Dashboard = () => {
                         <li><Link to='/dashboard/addproduct'>Add Product</Link></li>
                         </>
                          }
-                        {isBuyer&& 
-                        <>
-                        <li><Link to='/dashboard/myorders'>My Orders</Link></li>
-                        </>
+                        {
+                            isBuyer&&
+                            <li><Link to='/dashboard/myorders'>My Orders</Link></li>
                         }
+                        
+                        
                            
                             
                        

@@ -26,7 +26,7 @@ const Login = () => {
         .then(result => {
             const user = result.user;
             setLoginUserEmail(data.email);
-            navigate(from, {replace: true})
+            navigate('/')
         })
         .catch(error => {
             console.error(error);
@@ -38,7 +38,7 @@ const Login = () => {
          .then(result =>{
             const user = result.user;
             saveUser(user?.displayName, user?.email, 'buyer')
-            navigate(from, {replace: true})
+            navigate('/')
          })
          .catch(error => {
             console.error(error);

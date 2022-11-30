@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
 const MyProducts = () => {
-    const [deletingProduct, setDeletingProduct] = useState(null);
+    // const [deletingProduct, setDeletingProduct] = useState(null);
 
     const {data : products = [], isLoading, refetch} = useQuery({
         queryKey: ['products'],
@@ -13,6 +13,15 @@ const MyProducts = () => {
             return data;
         }
     })
+    const {data : advertises = []} = useQuery({
+        queryKey: ['advertises'],
+        queryFn: async () =>{
+            const res = await fetch('http://localhost:5000/advertises');
+            const data = await res.json();
+            return data;
+        }
+    })
+    
     const handleDeleteProduct = product =>{
         fetch(`http://localhost:5000/products/${product._id}`,{
             method: 'DELETE'
@@ -26,6 +35,34 @@ const MyProducts = () => {
             }
         })
     }
+    const handleDeleteAdvertiseProduct = product =>{
+        fetch(`http://localhost:5000/advertises/${product._id}`,{
+            method: 'DELETE'
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            if(data.deletedCount>0){
+                refetch();
+                toast.success(`${product.name} deleted successfully.`);
+                
+            }
+        })
+    }
+    
+    const handleAdvertise = (product) =>{
+        fetch('http://localhost:5000/advertises', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(product)
+        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success('Advertised Successfully.')
+                // navigate('/dashboard/myproducts');
+        })
+    }
     if(isLoading){
         return <progress className="progress w-56"></progress>;
     }
@@ -36,7 +73,8 @@ const MyProducts = () => {
                 <table className="table w-full">         
                     <thead>
                         <tr>
-                            
+                            <th>Product Category</th>
+                            <th>Product Name</th>
                             <th>Price</th>
                             <th>Status</th>
                             <th>Advertise</th>          
@@ -46,15 +84,18 @@ const MyProducts = () => {
                     <tbody>
                         {
                              
-                             products.map((product) =><tr>
-                           
-                            
-                             <td>{product.price}</td>
-                            
+                             products.map((product) =><tr>                 
+                             <td>{product.category}</td>
+                             <td>{product.name}</td>
+                             <td>{product.price}</td>              
                              <td>{product.available>0?'Available':'Sold'}</td>
-                             <td>{product.available>0&&<button className='btn btn-xs btn-success text-white'>Adverstise</button>}</td>
-                             <td><button onClick={()=>handleDeleteProduct(product)} className='btn btn-xs btn-error text-white'>Delete</button></td>
-                             </tr>)
+                             <td>{product.available>0&&<button onClick={()=>handleAdvertise(product)} className='btn btn-xs btn-success text-white'>Adverstise</button>}</td>
+                             <td><button onClick={()=>{
+                                 handleDeleteProduct(product);
+                                //  handleDeleteAdvertiseProduct(product);
+                            }}
+                            className='btn btn-xs btn-error text-white'>Delete</button></td>
+                            </tr>)
                         }
                     </tbody>
                 </table>
